@@ -8,6 +8,7 @@ import CanteenDetailPage from '../pages/CanteenDetailPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import AuditorDashboard from '../pages/AuditorDashboard';
+import CreateInspectionPage from '../pages/CreateInspectionPage';
 import TenantDashboard from '../pages/TenantDashboard';
 
 // Components
@@ -26,6 +27,7 @@ export const AppRoutes = () => {
       {/* Rute Terproteksi Khusus Auditor */}
       <Route element={<ProtectedRoute allowedRoles={['auditor']} />}>
         <Route path="/dashboard/auditor" element={<AuditorDashboard />} />
+        <Route path="/dashboard/auditor/create" element={<CreateInspectionPage />} />
       </Route>
 
       {/* Rute Terproteksi Khusus Tenant */}
