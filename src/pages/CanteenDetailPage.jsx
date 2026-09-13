@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useCanteens } from '../hooks/useCanteens';
+import { useAuth } from '../context/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
+import { ReviewFormModal } from '../components/review/ReviewFormModal';
 import { MapPin, Calendar, CheckCircle2, AlertCircle, Droplets, Trash2, Utensils, Star, User } from 'lucide-react';
 
 export default function CanteenDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { canteenDetail, loading, error, getCanteenDetail } = useCanteens();
+  const { user, profile } = useAuth();
+  
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
       getCanteenDetail(id);
     }
   }, [id, getCanteenDetail]);
+
+  const handleOpenReview = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    setIsReviewModalOpen(true);
+  };
 
   if (loading) {
     return (
@@ -175,9 +189,14 @@ export default function CanteenDetailPage() {
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 {canteenDetail.description || 'Belum ada deskripsi untuk kantin ini.'}
               </p>
-              <button className="w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-colors shadow-sm">
-                Beri Ulasan
-              </button>
+              {profile?.role !== 'tenant' && profile?.role !== 'auditor' && (
+                <button 
+                  onClick={handleOpenReview}
+                  className="w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-colors shadow-sm"
+                >
+                  Beri Ulasan
+                </button>
+              )}
             </section>
 
             {/* Ulasan Mahasiswa */}
@@ -192,11 +211,11 @@ export default function CanteenDetailPage() {
                   reviews.map(review => (
                     <div key={review.id} className="border-b border-slate-100 last:border-0 pb-6 last:pb-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center overflow-hidden">
+                        <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center overflow-hidden border border-emerald-200">
                           {review.profiles?.avatar_url ? (
                             <img src={review.profiles.avatar_url} alt="" className="w-full h-full object-cover" />
                           ) : (
-                            <User className="w-4 h-4 text-slate-500" />
+                            review.profiles?.full_name?.charAt(0) || <User className="w-4 h-4 text-slate-500" />
                           )}
                         </div>
                         <div>
@@ -211,7 +230,7 @@ export default function CanteenDetailPage() {
                           {new Date(review.created_at).toLocaleDateString('id-ID')}
                         </span>
                       </div>
-                      <p className="text-sm text-slate-600">{review.comment}</p>
+                      <p className="text-sm text-slate-600 mt-2">{review.comment}</p>
                     </div>
                   ))
                 ) : (
@@ -224,6 +243,14 @@ export default function CanteenDetailPage() {
 
         </div>
       </div>
+
+      <ReviewFormModal 
+        isOpen={isReviewModalOpen} 
+        onClose={() => setIsReviewModalOpen(false)} 
+        canteenId={canteenDetail.id}
+        canteenName={canteenDetail.name}
+        onSuccess={() => getCanteenDetail(canteenDetail.id)}
+      />
     </div>
   );
 }
