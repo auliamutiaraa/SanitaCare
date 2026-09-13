@@ -59,16 +59,47 @@ export function useTenant() {
     }
   };
 
-  const registerCanteen = async (canteenData) => {
-    if (!user) return { success: false };
+  const uploadBannerPhoto = async (file) => {
     try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+      const filePath = `canteens/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('sanitacare-bucket')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('sanitacare-bucket')
+        .getPublicUrl(filePath);
+
+      return { publicUrl: data.publicUrl };
+    } catch (err) {
+      console.error('Error uploading photo:', err);
+      throw err;
+    }
+  };
+
+  const registerCanteen = async (canteenData, file) => {
+    if (!user) return { success: false };
+    setLoading(true);
+    try {
+      let bannerUrl = canteenData.banner_url || null;
+      if (file) {
+        const { publicUrl } = await uploadBannerPhoto(file);
+        bannerUrl = publicUrl;
+      }
+
       const { error } = await supabase
         .from('canteens')
         .insert([{
           owner_id: user.id,
           name: canteenData.name,
           faculty_location: canteenData.faculty_location,
-          description: canteenData.description
+          description: canteenData.description,
+          banner_url: bannerUrl
         }]);
       
       if (error) throw error;
@@ -76,6 +107,8 @@ export function useTenant() {
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
     }
   };
 

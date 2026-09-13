@@ -30,7 +30,7 @@ export default function RegisterPage() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
@@ -41,9 +41,26 @@ export default function RegisterPage() {
         },
       });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
 
-      toast.success('Registrasi berhasil! Silakan cek email Anda atau login.');
+      // Masukkan data ke tabel profiles secara manual
+      if (authData?.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: authData.user.id,
+              full_name: data.fullName,
+              role: data.role
+            }
+          ]);
+        
+        if (profileError) {
+          console.error("Gagal menyimpan profil:", profileError);
+        }
+      }
+
+      toast.success('Registrasi berhasil! Silakan login.');
       navigate('/login');
     } catch (error) {
       toast.error(error.message || 'Terjadi kesalahan saat registrasi.');

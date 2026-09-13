@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTenant } from '../hooks/useTenant';
 import { GradeBadge } from '../components/canteen/GradeBadge';
-import { Store, CalendarClock, Send, MapPin } from 'lucide-react';
+import { Store, CalendarClock, Send, MapPin, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function TenantDashboard() {
@@ -13,14 +13,24 @@ export default function TenantDashboard() {
   const [requestNotes, setRequestNotes] = useState('');
   
   const [canteenForm, setCanteenForm] = useState({ name: '', faculty_location: '', description: '' });
+  const [bannerFile, setBannerFile] = useState(null);
+  const [bannerPreview, setBannerPreview] = useState('');
 
   useEffect(() => {
     fetchTenantData();
   }, [fetchTenantData]);
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setBannerFile(file);
+      setBannerPreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleRegisterCanteen = async (e) => {
     e.preventDefault();
-    const res = await registerCanteen(canteenForm);
+    const res = await registerCanteen(canteenForm, bannerFile);
     if (res.success) {
       toast.success('Profil Kantin berhasil dibuat!');
     } else {
@@ -76,8 +86,27 @@ export default function TenantDashboard() {
                 <textarea className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none" 
                   value={canteenForm.description} onChange={e => setCanteenForm({...canteenForm, description: e.target.value})} rows="3"></textarea>
               </div>
-              <button type="submit" className="w-full bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-700">
-                Simpan Profil Kantin
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Foto/Gambar Kantin (Opsional)</label>
+                <div className="relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <ImageIcon className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <input type="file" accept="image/*" className="block w-full pl-10 rounded-md border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" 
+                    onChange={handleFileChange} />
+                </div>
+                <p className="mt-1 text-xs text-slate-500">Kosongkan jika tidak ada. Gambar default akan digunakan jika kosong.</p>
+                {bannerPreview && (
+                  <div className="mt-3 relative h-32 rounded-lg overflow-hidden border border-slate-200">
+                    <img src={bannerPreview} alt="Preview" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                      <span className="text-white text-xs font-semibold">Preview Gambar</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button type="submit" disabled={loading} className="w-full bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-700 mt-2 disabled:opacity-50">
+                {loading ? 'Menyimpan...' : 'Simpan Profil Kantin'}
               </button>
             </form>
           </div>
@@ -88,7 +117,12 @@ export default function TenantDashboard() {
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div className="h-32 bg-slate-800 relative">
-                  <img src={myCanteen.banner_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'} alt="Banner" className="w-full h-full object-cover opacity-60" />
+                  <img 
+                    src={myCanteen.banner_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'} 
+                    alt="Banner" 
+                    className="w-full h-full object-cover opacity-60" 
+                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'; }}
+                  />
                 </div>
                 <div className="p-6">
                   <h2 className="text-xl font-bold text-slate-900 mb-2">{myCanteen.name}</h2>

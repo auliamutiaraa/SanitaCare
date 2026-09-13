@@ -11,6 +11,7 @@ export const CanteenCard = ({ canteen }) => {
           src={canteen.banner_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'} 
           alt={canteen.name} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+          onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'; }}
         />
         <div className="absolute top-3 right-3">
           <GradeBadge grade={canteen.current_grade || 'C'} />
