@@ -10,6 +10,7 @@ import RegisterPage from '../pages/RegisterPage';
 import AuditorDashboard from '../pages/AuditorDashboard';
 import CreateInspectionPage from '../pages/CreateInspectionPage';
 import TenantDashboard from '../pages/TenantDashboard';
+import EditProfilePage from '../pages/EditProfilePage';
 
 // Components
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
@@ -35,9 +36,9 @@ export const AppRoutes = () => {
         <Route path="/dashboard/tenant" element={<TenantDashboard />} />
       </Route>
 
-      {/* Rute Terproteksi Khusus Student/Umum jika dibutuhkan nantinya */}
+      {/* Rute Terproteksi Khusus Student/Umum (termasuk Auditor & Tenant) */}
       <Route element={<ProtectedRoute allowedRoles={['student', 'auditor', 'tenant']} />}>
-        {/* Tambahkan rute untuk student di sini */}
+        <Route path="/profile/edit" element={<EditProfilePage />} />
       </Route>
     </Routes>
   );

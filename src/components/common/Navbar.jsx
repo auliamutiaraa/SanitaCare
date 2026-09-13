@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Leaf, Menu, X, User } from 'lucide-react';
+import { Leaf, Menu, X, User, Settings, LogOut, UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const Navbar = () => {
   const { user, profile, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();
     navigate('/');
     setIsOpen(false);
+    setIsDropdownOpen(false);
+  };
+
+  const handleSignInNewAccount = async () => {
+    await logout();
+    navigate('/login');
+    setIsOpen(false);
+    setIsDropdownOpen(false);
   };
 
   const getDashboardLink = () => {
@@ -20,6 +30,18 @@ export const Navbar = () => {
     if (profile.role === 'tenant') return '/dashboard/tenant';
     return '/'; // Student can be directed to home or profile page if exists
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -59,11 +81,57 @@ export const Navbar = () => {
                     Dashboard
                   </NavLink>
                 )}
-                <div className="flex items-center gap-2 border-l pl-4 border-slate-200">
-                  <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
-                    {profile?.full_name?.charAt(0) || <User className="w-4 h-4" />}
-                  </div>
-                  <button onClick={handleLogout} className="text-sm font-medium text-rose-600 hover:text-rose-700">Logout</button>
+                
+                {/* Profile Dropdown */}
+                <div className="relative border-l pl-4 border-slate-200" ref={dropdownRef}>
+                  <button 
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="flex items-center gap-2 focus:outline-none"
+                  >
+                    <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold border-2 border-transparent hover:border-emerald-300 transition-all overflow-hidden">
+                      {profile?.avatar_url ? (
+                        <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        profile?.full_name?.charAt(0) || <User className="w-5 h-5" />
+                      )}
+                    </div>
+                  </button>
+
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden py-1 z-50">
+                      <div className="px-4 py-3 border-b border-slate-100">
+                        <p className="text-sm font-medium text-slate-900 truncate">{profile?.full_name || 'Pengguna'}</p>
+                        <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                      </div>
+                      
+                      <Link 
+                        to="/profile/edit" 
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                      >
+                        <Settings className="w-4 h-4 text-slate-400" />
+                        <span>Edit Profile</span>
+                      </Link>
+                      
+                      <button 
+                        onClick={handleSignInNewAccount}
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors text-left"
+                      >
+                        <UserPlus className="w-4 h-4 text-slate-400" />
+                        <span>Sign in new account</span>
+                      </button>
+                      
+                      <div className="border-t border-slate-100 my-1"></div>
+                      
+                      <button 
+                        onClick={handleLogout} 
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-rose-600 hover:bg-rose-50 transition-colors text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -114,7 +182,47 @@ export const Navbar = () => {
                   Dashboard
                 </NavLink>
               )}
-              <button onClick={handleLogout} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-rose-600 hover:bg-rose-50">Logout</button>
+              
+              <div className="pt-4 pb-2 border-t border-slate-100 mt-2">
+                <div className="flex items-center px-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold overflow-hidden">
+                    {profile?.avatar_url ? (
+                      <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      profile?.full_name?.charAt(0) || <User className="w-5 h-5" />
+                    )}
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-base font-medium text-slate-800">{profile?.full_name || 'Pengguna'}</p>
+                    <p className="text-sm font-medium text-slate-500">{user.email}</p>
+                  </div>
+                </div>
+                
+                <Link 
+                  to="/profile/edit" 
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50"
+                >
+                  <Settings className="w-5 h-5 text-slate-400" />
+                  Edit Profile
+                </Link>
+                
+                <button 
+                  onClick={handleSignInNewAccount} 
+                  className="w-full flex items-center gap-3 text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50"
+                >
+                  <UserPlus className="w-5 h-5 text-slate-400" />
+                  Sign in new account
+                </button>
+                
+                <button 
+                  onClick={handleLogout} 
+                  className="w-full flex items-center gap-3 text-left px-3 py-2 rounded-md text-base font-medium text-rose-600 hover:bg-rose-50 mt-1"
+                >
+                  <LogOut className="w-5 h-5" />
+                  Logout
+                </button>
+              </div>
             </>
           ) : (
             <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2">
