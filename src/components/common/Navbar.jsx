@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Leaf, Menu, X, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -36,15 +36,28 @@ export const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">Beranda</Link>
-            <Link to="/canteens" className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">Katalog Kantin</Link>
+            <NavLink 
+              to="/" 
+              className={({ isActive }) => `text-sm font-medium transition-colors ${isActive ? 'text-emerald-600 font-semibold' : 'text-slate-600 hover:text-emerald-600'}`}
+            >
+              Beranda
+            </NavLink>
+            <NavLink 
+              to="/canteens" 
+              className={({ isActive }) => `text-sm font-medium transition-colors ${isActive ? 'text-emerald-600 font-semibold' : 'text-slate-600 hover:text-emerald-600'}`}
+            >
+              Katalog Kantin
+            </NavLink>
             
             {user ? (
               <div className="flex items-center gap-4">
                 {(profile?.role === 'auditor' || profile?.role === 'tenant') && (
-                  <Link to={getDashboardLink()} className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">
+                  <NavLink 
+                    to={getDashboardLink()} 
+                    className={({ isActive }) => `text-sm font-medium transition-colors ${isActive ? 'text-emerald-600 font-semibold' : 'text-slate-600 hover:text-emerald-600'}`}
+                  >
                     Dashboard
-                  </Link>
+                  </NavLink>
                 )}
                 <div className="flex items-center gap-2 border-l pl-4 border-slate-200">
                   <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
@@ -75,13 +88,31 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1">
-          <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50">Beranda</Link>
-          <Link to="/canteens" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50">Katalog Kantin</Link>
+          <NavLink 
+            to="/" 
+            onClick={() => setIsOpen(false)} 
+            className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'text-emerald-600 bg-emerald-50' : 'text-slate-700 hover:text-emerald-600 hover:bg-emerald-50'}`}
+          >
+            Beranda
+          </NavLink>
+          <NavLink 
+            to="/canteens" 
+            onClick={() => setIsOpen(false)} 
+            className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'text-emerald-600 bg-emerald-50' : 'text-slate-700 hover:text-emerald-600 hover:bg-emerald-50'}`}
+          >
+            Katalog Kantin
+          </NavLink>
           
           {user ? (
             <>
               {(profile?.role === 'auditor' || profile?.role === 'tenant') && (
-                <Link to={getDashboardLink()} onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50">Dashboard</Link>
+                <NavLink 
+                  to={getDashboardLink()} 
+                  onClick={() => setIsOpen(false)} 
+                  className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'text-emerald-600 bg-emerald-50' : 'text-slate-700 hover:text-emerald-600 hover:bg-emerald-50'}`}
+                >
+                  Dashboard
+                </NavLink>
               )}
               <button onClick={handleLogout} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-rose-600 hover:bg-rose-50">Logout</button>
             </>
