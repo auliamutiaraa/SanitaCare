@@ -124,7 +124,10 @@ export function useInspections() {
         .select()
         .single();
 
-      if (insertError) throw insertError;
+      if (insertError) {
+        console.error('Insert Inspection Error:', insertError);
+        return { success: false, error: 'Gagal insert inspeksi: ' + insertError.message };
+      }
 
       // 2. Update Canteen Grade
       const { error: updateError } = await supabase
@@ -132,17 +135,24 @@ export function useInspections() {
         .update({ current_grade: inspectionData.grade })
         .eq('id', inspectionData.canteen_id);
 
-      if (updateError) throw updateError;
+      if (updateError) {
+        console.error('Update Canteen Error:', updateError);
+        return { success: false, error: 'Gagal update grade kantin: ' + updateError.message };
+      }
 
       // Optional: If this was tied to a request, mark it completed. 
       if (inspectionData.request_id) {
-        await updateRequestStatus(inspectionData.request_id, 'completed');
+        const updateReqRes = await updateRequestStatus(inspectionData.request_id, 'completed');
+        if (!updateReqRes.success) {
+           console.error('Update Request Error:', updateReqRes.error);
+           return { success: false, error: 'Gagal update status request: ' + updateReqRes.error };
+        }
       }
 
       return { success: true, data: newInspection };
     } catch (err) {
       console.error('Error creating inspection:', err);
-      return { success: false, error: err.message };
+      return { success: false, error: 'System error: ' + err.message };
     } finally {
       setLoading(false);
     }
