@@ -14,6 +14,7 @@ export default function CanteenDetailPage() {
   
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [selectedPhotoReview, setSelectedPhotoReview] = useState(null);
+  const [selectedInspectionPhoto, setSelectedInspectionPhoto] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -171,7 +172,23 @@ export default function CanteenDetailPage() {
               <h2 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4">Galeri Dokumentasi Dapur</h2>
               {latestInspection?.proof_photo_url ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <img src={latestInspection.proof_photo_url} alt="Bukti Dapur" className="rounded-xl w-full h-48 object-cover border border-slate-200 hover:opacity-90 transition-opacity cursor-pointer" />
+                  <div 
+                    className="relative h-48 cursor-pointer overflow-hidden rounded-xl group border border-slate-200"
+                    onClick={() => setSelectedInspectionPhoto(latestInspection)}
+                  >
+                    <img 
+                      src={latestInspection.proof_photo_url} 
+                      alt="Bukti Dapur" 
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                      <span className="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md text-sm">Lihat Detail</span>
+                    </div>
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <span className="text-xs text-white font-medium drop-shadow-md">Audit Resmi</span>
+                    </div>
+                  </div>
                   {/* Jika multiple foto, map array di sini */}
                 </div>
               ) : (
@@ -345,6 +362,56 @@ export default function CanteenDetailPage() {
               <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">
                 {selectedPhotoReview.comment}
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox Modal for Inspection Photo */}
+      {selectedInspectionPhoto && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 animate-in fade-in">
+          <button 
+            onClick={() => setSelectedInspectionPhoto(null)}
+            className="absolute top-4 right-4 p-2 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full transition-colors z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          
+          <div className="flex flex-col md:flex-row w-full max-w-5xl h-[80vh] bg-slate-900 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95">
+            {/* Image Container */}
+            <div className="flex-1 bg-black flex items-center justify-center relative min-h-[300px]">
+              <img 
+                src={selectedInspectionPhoto.proof_photo_url} 
+                alt="Dokumentasi Audit" 
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+            
+            {/* Inspection Detail Panel */}
+            <div className="w-full md:w-80 bg-white p-6 flex flex-col h-full overflow-y-auto">
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center overflow-hidden border border-emerald-200 shrink-0">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900">Audit Resmi</p>
+                  <span className="text-xs text-slate-500">
+                    {new Date(selectedInspectionPhoto.inspected_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="mb-4">
+                <GradeBadge grade={selectedInspectionPhoto.grade} className="shadow-sm inline-block" />
+                <p className="text-sm text-slate-500 mt-2 font-medium">Skor Total: <span className="text-slate-900 font-bold">{selectedInspectionPhoto.total_score}/100</span></p>
+              </div>
+              
+              <div>
+                <h4 className="text-xs font-bold text-slate-900 mb-2 uppercase tracking-wide">Catatan Auditor:</h4>
+                <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">
+                  {selectedInspectionPhoto.notes || 'Tidak ada catatan tambahan.'}
+                </p>
+              </div>
             </div>
           </div>
         </div>
