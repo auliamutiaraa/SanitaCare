@@ -39,7 +39,7 @@ export const CanteenCard = ({ canteen }) => {
             to={`/canteens/${canteen.id}`} 
             className="text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg transition-colors"
           >
-            Lihat Hasil Audit
+            Lihat Detail Audit
           </Link>
         </div>
       </div>
