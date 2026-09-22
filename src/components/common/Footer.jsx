@@ -34,7 +34,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>&copy; {new Date().getFullYear()} SanitaCare - GDGoC UNSRI Final Project. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} SanitaCare - Universitas Sriwijaya. All rights reserved.</p>
           <p className="mt-2 md:mt-0">Designed by Aulia Mutiara Sari</p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useReviews } from '../../hooks/useReviews';
 import { Star, X } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export const ReviewFormModal = ({ isOpen, onClose, canteenId, canteenName, onSuccess }) => {
   const [rating, setRating] = useState(0);

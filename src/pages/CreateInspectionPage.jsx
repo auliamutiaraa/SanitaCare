@@ -4,7 +4,7 @@ import { useInspections } from '../hooks/useInspections';
 import { AuditScoreCalculator } from '../components/inspection/AuditScoreCalculator';
 import { FileUploader } from '../components/common/FileUploader';
 import { ArrowLeft, Save } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export default function CreateInspectionPage() {
   const [searchParams] = useSearchParams();

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 import { Leaf, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 

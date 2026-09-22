@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTenant } from '../hooks/useTenant';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { Store, CalendarClock, Send, MapPin, Image as ImageIcon } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export default function TenantDashboard() {
   const { profile } = useAuth();

@@ -4,7 +4,7 @@ import { useInspections } from '../hooks/useInspections';
 import { useAuth } from '../context/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { FileText, ClipboardList, CheckCircle, XCircle, Plus } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export default function AuditorDashboard() {
   const { profile } = useAuth();
