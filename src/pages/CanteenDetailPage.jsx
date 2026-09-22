@@ -4,7 +4,7 @@ import { useCanteens } from '../hooks/useCanteens';
 import { useAuth } from '../context/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { ReviewFormModal } from '../components/review/ReviewFormModal';
-import { MapPin, Calendar, CheckCircle2, AlertCircle, Droplets, Trash2, Utensils, Star, User } from 'lucide-react';
+import { MapPin, Calendar, CheckCircle2, AlertCircle, Droplets, Trash2, Utensils, Star, User, X, Camera } from 'lucide-react';
 
 export default function CanteenDetailPage() {
   const { id } = useParams();
@@ -13,6 +13,7 @@ export default function CanteenDetailPage() {
   const { user, profile } = useAuth();
   
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [selectedPhotoReview, setSelectedPhotoReview] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -53,6 +54,7 @@ export default function CanteenDetailPage() {
 
   const latestInspection = canteenDetail.inspections?.sort((a, b) => new Date(b.inspected_at) - new Date(a.inspected_at))[0];
   const reviews = canteenDetail.reviews || [];
+  const reviewsWithPhotos = reviews.filter(r => r.photo_url);
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
@@ -178,6 +180,40 @@ export default function CanteenDetailPage() {
                 </div>
               )}
             </section>
+            {/* Galeri Komunitas / Foto Mahasiswa */}
+            <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+              <div className="flex items-center gap-2 mb-6 border-b border-slate-100 pb-4">
+                <Camera className="w-6 h-6 text-emerald-600" />
+                <h2 className="text-xl font-bold text-slate-900">Foto dari Pengunjung/Mahasiswa</h2>
+              </div>
+              
+              {reviewsWithPhotos.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {reviewsWithPhotos.map((review) => (
+                    <div 
+                      key={`gallery-${review.id}`} 
+                      className="relative aspect-square cursor-pointer overflow-hidden rounded-xl group"
+                      onClick={() => setSelectedPhotoReview(review)}
+                    >
+                      <img 
+                        src={review.photo_url} 
+                        alt="Foto dari pengunjung" 
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                      <div className="absolute bottom-2 left-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                        <span className="text-xs text-white font-medium drop-shadow-md">{review.rating}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 bg-slate-50 rounded-xl border border-slate-100 border-dashed">
+                  <p className="text-slate-500 text-sm">Belum ada foto yang dibagikan oleh pengunjung.</p>
+                </div>
+              )}
+            </section>
 
           </div>
 
@@ -232,6 +268,15 @@ export default function CanteenDetailPage() {
                         </span>
                       </div>
                       <p className="text-sm text-slate-600 mt-2">{review.comment}</p>
+                      {review.photo_url && (
+                        <div 
+                          className="mt-3 relative w-24 h-24 rounded-lg overflow-hidden cursor-pointer group border border-slate-200"
+                          onClick={() => setSelectedPhotoReview(review)}
+                        >
+                          <img src={review.photo_url} alt="Review attachment" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+                        </div>
+                      )}
                     </div>
                   ))
                 ) : (
@@ -252,6 +297,58 @@ export default function CanteenDetailPage() {
         canteenName={canteenDetail.name}
         onSuccess={() => getCanteenDetail(canteenDetail.id)}
       />
+
+      {/* Lightbox Modal */}
+      {selectedPhotoReview && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 animate-in fade-in">
+          <button 
+            onClick={() => setSelectedPhotoReview(null)}
+            className="absolute top-4 right-4 p-2 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full transition-colors z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          
+          <div className="flex flex-col md:flex-row w-full max-w-5xl h-[80vh] bg-slate-900 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95">
+            {/* Image Container */}
+            <div className="flex-1 bg-black flex items-center justify-center relative min-h-[300px]">
+              <img 
+                src={selectedPhotoReview.photo_url} 
+                alt="Review detail" 
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+            
+            {/* Review Detail Panel */}
+            <div className="w-full md:w-80 bg-white p-6 flex flex-col h-full overflow-y-auto">
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center overflow-hidden border border-emerald-200 shrink-0">
+                  {selectedPhotoReview.profiles?.avatar_url ? (
+                    <img src={selectedPhotoReview.profiles.avatar_url} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    selectedPhotoReview.profiles?.full_name?.charAt(0) || <User className="w-5 h-5 text-slate-500" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900">{selectedPhotoReview.profiles?.full_name}</p>
+                  <span className="text-xs text-slate-500">
+                    {new Date(selectedPhotoReview.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className={`w-4 h-4 ${i < selectedPhotoReview.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200 fill-slate-200'}`} />
+                ))}
+              </div>
+              
+              <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">
+                {selectedPhotoReview.comment}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
