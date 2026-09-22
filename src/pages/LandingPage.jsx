@@ -6,6 +6,9 @@ import { CanteenCard } from '../components/canteen/CanteenCard';
 import { FacultySection } from '../components/landing/FacultySection';
 import { GradeGuideSection } from '../components/landing/GradeGuideSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
+import { AboutSection } from '../components/landing/AboutSection';
+import { RecentReviewsSection } from '../components/landing/RecentReviewsSection';
+import { FaqSection } from '../components/landing/FaqSection';
 
 export default function LandingPage() {
   const { canteens, loading, fetchCanteens } = useCanteens();
@@ -136,6 +139,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <AboutSection />
+      <RecentReviewsSection />
+      <FaqSection />
     </div>
   );
 }
