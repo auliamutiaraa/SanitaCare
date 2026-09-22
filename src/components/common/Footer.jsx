@@ -1,5 +1,6 @@
 import React from 'react';
 import { Leaf } from 'lucide-react';
+import logoUnsri from '../../assets/logo-unsri.png';
 
 export const Footer = () => {
   return (
@@ -8,8 +9,16 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Leaf className="w-6 h-6 text-emerald-500" />
-              <span className="font-extrabold text-2xl text-white">SanitaCare</span>
+              <img 
+                src={logoUnsri} 
+                alt="Logo UNSRI" 
+                className="w-8 h-8 object-contain"
+              />
+              <div className="w-px h-6 bg-slate-700 hidden sm:block mx-1"></div>
+              <div className="flex items-center gap-1.5">
+                <Leaf className="w-6 h-6 text-emerald-500" />
+                <span className="font-extrabold text-2xl text-white tracking-tight">SanitaCare</span>
+              </div>
             </div>
             <p className="text-sm text-slate-400 max-w-xs">
               Sistem Informasi Transparansi Sanitasi & Kebersihan Kantin Kampus Universitas Sriwijaya.
