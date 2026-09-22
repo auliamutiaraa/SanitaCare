@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShieldCheck, Users, Activity } from 'lucide-react';
 import { useCanteens } from '../hooks/useCanteens';
 import { CanteenCard } from '../components/canteen/CanteenCard';
+import { FacultySection } from '../components/landing/FacultySection';
+import { GradeGuideSection } from '../components/landing/GradeGuideSection';
+import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 
 export default function LandingPage() {
   const { canteens, loading, fetchCanteens } = useCanteens();
@@ -87,6 +90,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <FacultySection />
+      <HowItWorksSection />
+      <GradeGuideSection />
 
       {/* Featured Canteens */}
       <section className="py-16 bg-slate-50 flex-1">
