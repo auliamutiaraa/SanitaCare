@@ -5,8 +5,14 @@ import { ArrowRight } from 'lucide-react';
 
 export function FeaturedCanteensSection({ canteens, loading }) {
   return (
-    <section className="py-16 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-16 bg-white overflow-hidden">
+      {/* Wave from top */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-0 transform rotate-180">
+        <svg className="relative block w-full h-[40px] md:h-[80px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C63.2,21.56,128.46,47.45,193.3,64.2C236.4,75.46,279.4,80.7,321.39,56.44Z" fill="#faf9f4"></path>
+        </svg>
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         
         {/* Header Area */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10">

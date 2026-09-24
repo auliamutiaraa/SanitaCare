@@ -32,7 +32,7 @@ export default function CanteenDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 p-8 flex justify-center">
+      <div className="min-h-screen p-8 flex justify-center">
         <div className="flex flex-col items-center gap-4 mt-20">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-600"></div>
           <p className="text-sm font-medium text-slate-500 animate-pulse">Memuat detail kantin...</p>
@@ -43,7 +43,7 @@ export default function CanteenDetailPage() {
 
   if (error || !canteenDetail) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <div className="bg-white p-8 rounded-2xl text-center max-w-md shadow-sm border border-slate-200">
           <AlertCircle className="w-12 h-12 text-rose-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-slate-900 mb-2">Gagal Memuat Data</h2>
@@ -58,7 +58,7 @@ export default function CanteenDetailPage() {
   const reviewsWithPhotos = reviews.filter(r => r.photo_url);
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-20">
+    <div className="min-h-screen pb-20">
       {/* Header Banner Hero */}
       <div className="relative h-64 md:h-80 w-full bg-slate-900">
         <img 

@@ -62,77 +62,86 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-emerald-50">
+    <div className="relative flex min-h-screen items-center justify-center bg-[#faf9f4] px-4 py-12 sm:px-6 lg:px-8 overflow-hidden z-0">
+      {/* Background Waves */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <svg className="absolute bottom-0 left-0 w-[85vw] md:w-[55vw] text-[#d8e5d3]" viewBox="0 0 1000 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 600H1000C1000 600 800 450 500 350C200 250 50 100 0 0V600Z" fill="currentColor"/>
+        </svg>
+        <svg className="absolute top-[10%] right-0 w-[70vw] md:w-[45vw] text-[#e2ede0]" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M800 0V1000C800 1000 600 800 400 600C200 400 50 250 0 100C0 100 200 50 800 0Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/50 z-10 relative">
         <div className="text-center">
           <div className="mx-auto flex flex-col items-center justify-center">
-            <img src={logoSanitacare} alt="Logo" className="h-16 w-16 object-contain" />
+            <img src={logoSanitacare} alt="Logo" className="h-14 w-14 object-contain" />
             <div className="text-center mt-2">
-              <span className="block font-extrabold text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 to-teal-700 leading-tight">
+              <span className="block font-extrabold text-[22px] tracking-tight text-[#0f2e22] leading-tight">
                 SanitaCare
               </span>
-              <span className="block text-[10px] font-semibold text-emerald-600/80 tracking-widest uppercase">
+              <span className="block text-[9px] font-bold text-[#0f2e22]/70 tracking-[0.2em] uppercase mt-0.5">
                 Sriwijaya University
               </span>
             </div>
           </div>
 
-          <h2 className="mt-6 text-3xl font-extrabold text-slate-900">Selamat Datang</h2>
-          <p className="mt-2 text-sm text-slate-600">
+          <h2 className="mt-8 text-3xl font-extrabold text-[#0f2e22]">Masuk ke Akun Anda</h2>
+          <p className="mt-2 text-sm text-slate-500">
             Masuk ke akun SanitaCare Anda
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-4 rounded-md shadow-sm">
-            <div>
-              <label className="block text-sm font-medium text-slate-700">Email</label>
-              <input
-                {...register('email')}
-                type="email"
-                className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
-                placeholder="email@contoh.com"
-              />
-              {errors.email && <p className="mt-1 text-xs text-rose-500">{errors.email.message}</p>}
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-slate-700">Password</label>
-              <div className="relative mt-1">
-                <input
-                  {...register('password')}
-                  type={showPassword ? "text" : "password"}
-                  className="block w-full rounded-md border border-slate-300 px-3 py-2 pr-10 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
-                  placeholder="••••••••"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" aria-hidden="true" />
-                  ) : (
-                    <Eye className="h-5 w-5" aria-hidden="true" />
-                  )}
-                </button>
-              </div>
-              {errors.password && <p className="mt-1 text-xs text-rose-500">{errors.password.message}</p>}
-            </div>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label className="block text-sm font-bold text-[#0f2e22] mb-1.5">Email</label>
+            <input
+              {...register('email')}
+              type="email"
+              className="block w-full rounded-lg border border-[#e2e8f0] bg-[#fcfdfa] px-4 py-3 text-sm placeholder-slate-400 focus:border-[#009a60] focus:outline-none focus:ring-1 focus:ring-[#009a60] transition-colors"
+              placeholder="mahasiswa@unsri.ac.id"
+            />
+            {errors.email && <p className="mt-1.5 text-xs text-rose-500">{errors.email.message}</p>}
           </div>
 
           <div>
+            <label className="block text-sm font-bold text-[#0f2e22] mb-1.5">Password</label>
+            <div className="relative">
+              <input
+                {...register('password')}
+                type={showPassword ? "text" : "password"}
+                className="block w-full rounded-lg border border-[#e2e8f0] bg-[#fcfdfa] px-4 py-3 pr-11 text-sm placeholder-slate-400 focus:border-[#009a60] focus:outline-none focus:ring-1 focus:ring-[#009a60] transition-colors"
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-600 focus:outline-none"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-5 w-5" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+            {errors.password && <p className="mt-1.5 text-xs text-rose-500">{errors.password.message}</p>}
+          </div>
+
+          <div className="pt-2">
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
+              className="flex w-full justify-center rounded-xl border border-transparent bg-[#009a60] px-4 py-3.5 text-sm font-bold text-white hover:bg-[#008855] focus:outline-none focus:ring-2 focus:ring-[#009a60] focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed transition-all shadow-md shadow-[#009a60]/20"
             >
               {isLoading ? 'Masuk...' : 'Masuk'}
             </button>
           </div>
           
-          <div className="text-center text-sm text-slate-600">
+          <div className="text-center text-sm text-slate-500 mt-6">
             Belum punya akun?{' '}
-            <Link to="/register" className="font-medium text-emerald-600 hover:text-emerald-500">
+            <Link to="/register" className="font-bold text-[#009a60] hover:text-[#008855] transition-colors">
               Daftar di sini
             </Link>
           </div>

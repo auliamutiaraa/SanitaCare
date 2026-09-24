@@ -14,31 +14,42 @@ import EditProfilePage from '../pages/EditProfilePage';
 
 // Components
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
+import { AppLayout } from '../components/layout/AppLayout';
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Rute Publik */}
+      {/* Rute Publik Tanpa AppLayout (Background Khusus/Default) */}
       <Route path="/" element={<LandingPage />} />
-      <Route path="/canteens" element={<CanteenListPage />} />
-      <Route path="/canteens/:id" element={<CanteenDetailPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
+      {/* Rute Publik Dengan AppLayout */}
+      <Route element={<AppLayout />}>
+        <Route path="/canteens" element={<CanteenListPage />} />
+        <Route path="/canteens/:id" element={<CanteenDetailPage />} />
+      </Route>
+
       {/* Rute Terproteksi Khusus Auditor */}
       <Route element={<ProtectedRoute allowedRoles={['auditor']} />}>
-        <Route path="/dashboard/auditor" element={<AuditorDashboard />} />
-        <Route path="/dashboard/auditor/create" element={<CreateInspectionPage />} />
+        <Route element={<AppLayout />}>
+          <Route path="/dashboard/auditor" element={<AuditorDashboard />} />
+          <Route path="/dashboard/auditor/create" element={<CreateInspectionPage />} />
+        </Route>
       </Route>
 
       {/* Rute Terproteksi Khusus Tenant */}
       <Route element={<ProtectedRoute allowedRoles={['tenant']} />}>
-        <Route path="/dashboard/tenant" element={<TenantDashboard />} />
+        <Route element={<AppLayout />}>
+          <Route path="/dashboard/tenant" element={<TenantDashboard />} />
+        </Route>
       </Route>
 
       {/* Rute Terproteksi Khusus Student/Umum (termasuk Auditor & Tenant) */}
       <Route element={<ProtectedRoute allowedRoles={['student', 'auditor', 'tenant']} />}>
-        <Route path="/profile/edit" element={<EditProfilePage />} />
+        <Route element={<AppLayout />}>
+          <Route path="/profile/edit" element={<EditProfilePage />} />
+        </Route>
       </Route>
     </Routes>
   );

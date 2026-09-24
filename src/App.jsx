@@ -13,7 +13,7 @@ function App() {
       <Router>
         <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 flex flex-col relative">
             <AppRoutes />
           </main>
           <Footer />
