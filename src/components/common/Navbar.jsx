@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Leaf, Menu, X, User, Settings, LogOut, UserPlus, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logoSanitacare from '../../assets/logo-sanitacare.png';
 
 const NavbarPattern = () => (
   <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
@@ -102,14 +103,16 @@ export const Navbar = () => {
           <div className="flex justify-between h-20 items-center">
             
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="bg-gradient-to-tr from-emerald-600 to-teal-400 p-2 rounded-xl shadow-lg shadow-emerald-200/50 group-hover:shadow-emerald-300 group-hover:scale-105 transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out rounded-xl"></div>
-                <Leaf className="w-5 h-5 text-white group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+            <Link to="/" className="flex items-center gap-1.5 group focus:outline-none">
+              <img src={logoSanitacare} alt="Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain group-hover:scale-105 transition-transform duration-300" />
+              <div className="flex flex-col justify-center">
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 to-teal-700 leading-tight">
+                  SanitaCare
+                </span>
+                <span className="text-[10px] sm:text-xs font-semibold text-emerald-600/80 tracking-wider uppercase leading-none">
+                  Sriwijaya University
+                </span>
               </div>
-              <span className="font-extrabold text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 to-teal-700">
-                SanitaCare
-              </span>
             </Link>
 
             {/* Desktop Menu */}

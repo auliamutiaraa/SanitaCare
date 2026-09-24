@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabaseClient';
 import { toast } from 'sonner';
 import { Leaf, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import logoSanitacare from '../assets/logo-sanitacare.png';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Format email tidak valid' }),
@@ -64,9 +65,18 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-emerald-50">
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
-            <Leaf className="h-6 w-6 text-emerald-600" />
+          <div className="mx-auto flex flex-col items-center justify-center">
+            <img src={logoSanitacare} alt="Logo" className="h-16 w-16 object-contain" />
+            <div className="text-center mt-2">
+              <span className="block font-extrabold text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 to-teal-700 leading-tight">
+                SanitaCare
+              </span>
+              <span className="block text-[10px] font-semibold text-emerald-600/80 tracking-widest uppercase">
+                Sriwijaya University
+              </span>
+            </div>
           </div>
+
           <h2 className="mt-6 text-3xl font-extrabold text-slate-900">Selamat Datang</h2>
           <p className="mt-2 text-sm text-slate-600">
             Masuk ke akun SanitaCare Anda
