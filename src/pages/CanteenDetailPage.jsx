@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCanteens } from '../hooks/useCanteens';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { ReviewFormModal } from '../components/review/ReviewFormModal';
 import { MapPin, Calendar, CheckCircle2, AlertCircle, Droplets, Trash2, Utensils, Star, User, X, Camera } from 'lucide-react';

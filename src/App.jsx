@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { AppRoutes } from './routes/AppRoutes';
+import { AuthProvider } from './hooks/AuthContext';
+import { AppRoutes } from './components/AppRoutes';
 import { Toaster } from 'sonner';
 import { CheckCircle2, AlertCircle, Info, Loader2 } from 'lucide-react';
 import { Navbar } from './components/common/Navbar';

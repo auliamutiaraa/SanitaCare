@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 export const ProtectedRoute = ({ allowedRoles }) => {
   const { user, profile, loading } = useAuth();

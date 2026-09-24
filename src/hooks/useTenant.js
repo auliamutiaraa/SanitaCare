@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { supabase } from '../lib/supabaseClient';
-import { useAuth } from '../context/AuthContext';
+import { supabase } from '../services/supabaseClient';
+import { useAuth } from '../hooks/AuthContext';
 
 export function useTenant() {
   const { user } = useAuth();

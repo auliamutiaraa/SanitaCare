@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useInspections } from '../hooks/useInspections';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { FileText, ClipboardList, CheckCircle, XCircle, Plus } from 'lucide-react';
 import { toast } from 'sonner';

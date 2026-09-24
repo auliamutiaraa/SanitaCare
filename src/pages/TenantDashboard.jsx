@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/AuthContext';
 import { useTenant } from '../hooks/useTenant';
 import { GradeBadge } from '../components/canteen/GradeBadge';
 import { Store, CalendarClock, Send, MapPin, Image as ImageIcon } from 'lucide-react';

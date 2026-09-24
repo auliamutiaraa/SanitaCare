@@ -13,8 +13,8 @@ import TenantDashboard from '../pages/TenantDashboard';
 import EditProfilePage from '../pages/EditProfilePage';
 
 // Components
-import { ProtectedRoute } from '../components/common/ProtectedRoute';
-import { AppLayout } from '../components/layout/AppLayout';
+import { ProtectedRoute } from './common/ProtectedRoute';
+import { AppLayout } from './layout/AppLayout';
 
 export const AppRoutes = () => {
   return (
