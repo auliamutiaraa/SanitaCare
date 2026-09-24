@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabaseClient';
 import { toast } from 'sonner';
 import { useAuth } from '../hooks/AuthContext';
+import { useProfile } from '../hooks/useProfile';
 import { User, Camera, Loader2, Save } from 'lucide-react';
 
 const profileSchema = z.object({
@@ -17,10 +17,17 @@ const profileSchema = z.object({
 export default function EditProfilePage() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url || '');
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const fileInputRef = useRef(null);
+  const { updateProfile, uploadAvatar, isLoading, uploadingAvatar, avatarUrl } = useProfile(user, profile);
+
+  const handleAvatarUpload = async (event) => {
+    await uploadAvatar(event);
+  };
+
+  const onSubmit = async (data) => {
+    await updateProfile(data);
+  };
+
 
   const {
     register,
@@ -43,119 +50,10 @@ export default function EditProfilePage() {
         email: user.email || '',
         password: '',
       });
-      setAvatarUrl(profile.avatar_url || '');
     }
   }, [profile, user, reset]);
 
-  const handleAvatarUpload = async (event) => {
-    try {
-      setUploadingAvatar(true);
-      
-      if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('Pilih gambar untuk diunggah.');
-      }
-
-      const file = event.target.files[0];
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `avatars/${user.id}/${fileName}`;
-
-      // Upload image to 'sanitacare-bucket' bucket
-      const { error: uploadError } = await supabase.storage
-        .from('sanitacare-bucket')
-        .upload(filePath, file);
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('sanitacare-bucket')
-        .getPublicUrl(filePath);
-        
-      setAvatarUrl(publicUrl);
-      
-      // Update profile immediately with new avatar
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .update({ avatar_url: publicUrl })
-        .eq('id', user.id);
-        
-      if (updateError) throw updateError;
-      
-      toast.success('Foto profil berhasil diperbarui!');
-    } catch (error) {
-      toast.error('Gagal mengunggah gambar: ' + (error.message || 'Terjadi kesalahan.'));
-      console.error(error);
-    } finally {
-      setUploadingAvatar(false);
-    }
-  };
-
-  const onSubmit = async (data) => {
-    setIsLoading(true);
-    try {
-      let authUpdates = {};
-      let profileUpdates = {};
-      let needsAuthUpdate = false;
-      let needsProfileUpdate = false;
-
-      // Check if email changed
-      if (data.email !== user.email) {
-        authUpdates.email = data.email;
-        needsAuthUpdate = true;
-      }
-
-      // Check if password changed (not empty)
-      if (data.password && data.password.length > 0) {
-        authUpdates.password = data.password;
-        needsAuthUpdate = true;
-      }
-
-      // Check if name changed
-      if (data.fullName !== profile.full_name) {
-        profileUpdates.full_name = data.fullName;
-        needsProfileUpdate = true;
-      }
-
-      // Update Auth (Email / Password)
-      if (needsAuthUpdate) {
-        const { error: authError } = await supabase.auth.updateUser(authUpdates);
-        if (authError) throw authError;
-        
-        if (authUpdates.email) {
-          toast.success('Email konfirmasi telah dikirim ke alamat baru Anda.');
-        }
-      }
-
-      // Update Profile (Name)
-      if (needsProfileUpdate) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .update(profileUpdates)
-          .eq('id', user.id);
-          
-        if (profileError) throw profileError;
-      }
-
-      if (needsAuthUpdate || needsProfileUpdate) {
-        toast.success('Profil berhasil diperbarui!');
-        // Refresh page or user will be automatically updated by AuthContext listener
-        setTimeout(() => window.location.reload(), 1500);
-      } else {
-        toast('Tidak ada perubahan yang disimpan.', { icon: 'ℹ️' });
-      }
-
-    } catch (error) {
-      toast.error(error.message || 'Terjadi kesalahan saat memperbarui profil.');
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (!user || !profile) {
+      if (!user || !profile) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />

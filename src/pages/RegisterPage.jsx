@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabaseClient';
 import { toast } from 'sonner';
 import { Leaf, Eye, EyeOff } from 'lucide-react';
+import { useAuthActions } from '../hooks/useAuthActions';
 
 import logoSanitacare from '../assets/logo-sanitacare.png';
 
@@ -17,9 +17,9 @@ const registerSchema = z.object({
 });
 
 export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { register: registerAuth, isLoading } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  
 
   const {
     register,
@@ -30,45 +30,7 @@ export default function RegisterPage() {
   });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
-    try {
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          data: {
-            full_name: data.fullName,
-            role: data.role,
-          },
-        },
-      });
-
-      if (signUpError) throw signUpError;
-
-      // Masukkan data ke tabel profiles secara manual
-      if (authData?.user) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert([
-            {
-              id: authData.user.id,
-              full_name: data.fullName,
-              role: data.role
-            }
-          ]);
-        
-        if (profileError) {
-          console.error("Gagal menyimpan profil:", profileError);
-        }
-      }
-
-      toast.success('Registrasi berhasil! Silakan login.');
-      navigate('/login');
-    } catch (error) {
-      toast.error(error.message || 'Terjadi kesalahan saat registrasi.');
-    } finally {
-      setIsLoading(false);
-    }
+    await registerAuth(data);
   };
 
   return (

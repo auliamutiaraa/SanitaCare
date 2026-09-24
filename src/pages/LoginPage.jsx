@@ -3,10 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabaseClient';
 import { toast } from 'sonner';
 import { Leaf, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../hooks/AuthContext';
+import { useAuthActions } from '../hooks/useAuthActions';
 import logoSanitacare from '../assets/logo-sanitacare.png';
 
 const loginSchema = z.object({
@@ -15,9 +14,9 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoading } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  
 
   const {
     register,
@@ -28,37 +27,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
-    try {
-      const { data: authData, error } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (error) throw error;
-
-      // Ambil profile role untuk redirect (sementara fetch manual untuk routing cepat)
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', authData.user.id)
-        .single();
-
-      toast.success('Login berhasil!');
-      
-      const role = profileData?.role;
-      if (role === 'auditor') {
-        navigate('/dashboard/auditor');
-      } else if (role === 'tenant') {
-        navigate('/dashboard/tenant');
-      } else {
-        navigate('/'); // student ke halaman utama
-      }
-    } catch (error) {
-      toast.error('Email atau Password salah.');
-    } finally {
-      setIsLoading(false);
-    }
+    await login(data);
   };
 
   return (
