@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useReviews } from '../../hooks/useReviews';
 import { Star, X } from 'lucide-react';
 import { toast } from 'sonner';
@@ -52,8 +53,8 @@ export const ReviewFormModal = ({ isOpen, onClose, canteenId, canteenName, onSuc
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
+  return createPortal(
+    <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in zoom-in-95">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
           <h3 className="text-lg font-bold text-slate-900">Tulis Ulasan</h3>
@@ -145,6 +146,7 @@ export const ReviewFormModal = ({ isOpen, onClose, canteenId, canteenName, onSuc
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

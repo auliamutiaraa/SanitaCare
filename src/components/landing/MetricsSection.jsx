@@ -9,8 +9,8 @@ export function MetricsSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             
             {/* Card 1 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-50 hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-300">
-              <div className="w-14 h-14 mx-auto bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-5">
+            <div className="p-6 rounded-2xl bg-white border border-slate-50 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl group">
+              <div className="w-14 h-14 mx-auto bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                 <ShieldCheck className="w-7 h-7" />
               </div>
               <h3 className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent font-extrabold text-3xl md:text-4xl mb-2">
@@ -20,8 +20,8 @@ export function MetricsSection() {
             </div>
             
             {/* Card 2 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-50 hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-300">
-              <div className="w-14 h-14 mx-auto bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-5">
+            <div className="p-6 rounded-2xl bg-white border border-slate-50 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl group">
+              <div className="w-14 h-14 mx-auto bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Activity className="w-7 h-7" />
               </div>
               <h3 className="bg-gradient-to-r from-teal-500 to-emerald-600 bg-clip-text text-transparent font-extrabold text-3xl md:text-4xl mb-2">
@@ -31,8 +31,8 @@ export function MetricsSection() {
             </div>
             
             {/* Card 3 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-50 hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-300">
-              <div className="w-14 h-14 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5">
+            <div className="p-6 rounded-2xl bg-white border border-slate-50 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl group">
+              <div className="w-14 h-14 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                 <Users className="w-7 h-7" />
               </div>
               <h3 className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent font-extrabold text-3xl md:text-4xl mb-2">

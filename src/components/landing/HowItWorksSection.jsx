@@ -51,12 +51,12 @@ export function HowItWorksSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
-              <div key={step.id} className="flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center shadow-lg mb-6 relative">
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold border-4 border-white">
+              <div key={step.id} className="flex flex-col items-center text-center group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2">
+                <div className="w-20 h-20 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center shadow-lg mb-6 relative group-hover:shadow-xl transition-all duration-300">
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold border-4 border-white group-hover:scale-110 transition-transform duration-300">
                     {step.id}
                   </div>
-                  <step.icon className="w-8 h-8 text-emerald-600" />
+                  <step.icon className="w-8 h-8 text-emerald-600 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-3 px-2">{step.title}</h3>
                 <p className="text-sm text-slate-600 px-4">{step.description}</p>

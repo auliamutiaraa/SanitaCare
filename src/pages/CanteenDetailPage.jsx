@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCanteens } from '../hooks/useCanteens';
 import { useAuth } from '../context/AuthContext';
@@ -316,7 +317,7 @@ export default function CanteenDetailPage() {
       />
 
       {/* Lightbox Modal */}
-      {selectedPhotoReview && (
+      {selectedPhotoReview && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 animate-in fade-in">
           <button 
             onClick={() => setSelectedPhotoReview(null)}
@@ -364,11 +365,12 @@ export default function CanteenDetailPage() {
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Lightbox Modal for Inspection Photo */}
-      {selectedInspectionPhoto && (
+      {selectedInspectionPhoto && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 animate-in fade-in">
           <button 
             onClick={() => setSelectedInspectionPhoto(null)}
@@ -414,7 +416,8 @@ export default function CanteenDetailPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShieldCheck, Users, Activity } from 'lucide-react';
 import { useCanteens } from '../hooks/useCanteens';
@@ -16,6 +16,7 @@ import heroImage from '../assets/hero-canteen-new.jpg';
 export default function LandingPage() {
   const { canteens, loading, fetchCanteens } = useCanteens();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchCanteens({ grades: ['A'], limit: 3 });
@@ -23,9 +24,8 @@ export default function LandingPage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const query = e.target.search.value;
-    if (query) {
-      navigate(`/canteens?search=${query}`);
+    if (searchQuery) {
+      navigate(`/canteens?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -33,6 +33,25 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-[#faf9f4] pt-8 lg:pt-6 overflow-hidden min-h-[calc(100vh-80px)]">
+        
+        {/* Dekorasi Ambient Glow / Blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          {/* Hijau Pastel Atas Kiri */}
+          <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-[#dae9b0] rounded-full blur-[100px] opacity-45"></div>
+          
+          {/* Ungu / Lilac Lembut Tengah Kiri */}
+          <div className="absolute top-[35%] left-[20%] w-[400px] h-[400px] bg-[#c4abf2] rounded-full blur-[120px] opacity-30"></div>
+          
+          {/* Hijau Segar Bawah Kiri */}
+          <div className="absolute bottom-5 -left-10 w-[450px] h-[450px] bg-[#a8db96] rounded-full blur-[120px] opacity-35"></div>
+
+          {/* Hijau Pastel Atas Kanan (dibelakang gambar) */}
+          <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-[#dae9b0] rounded-full blur-[120px] opacity-45"></div>
+          
+          {/* Hijau Krem Bawah Kanan */}
+          <div className="absolute bottom-20 -right-20 w-[500px] h-[500px] bg-[#edf4d5] rounded-full blur-[100px] opacity-50"></div>
+        </div>
+
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 pb-20 lg:pb-32">
           
           {/* Kiri: Teks & Search */}
@@ -52,7 +71,7 @@ export default function LandingPage() {
               SanitaCare memastikan transparansi sanitasi dan kebersihan setiap kantin di lingkungan kampus Universitas Sriwijaya untuk kesehatan Anda.
             </p>
             
-            <form onSubmit={handleSearch} className="w-full flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-sm border border-slate-100 max-w-lg">
+            <form onSubmit={handleSearch} className="w-full flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-sm border border-slate-100 max-w-lg mb-4">
               <div className="relative flex-1">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Search className="h-5 w-5 text-slate-400" />
@@ -60,6 +79,8 @@ export default function LandingPage() {
                 <input
                   type="text"
                   name="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="block w-full pl-11 pr-4 py-3 rounded-xl border-0 bg-transparent text-slate-900 focus:ring-0 text-sm lg:text-base transition-all outline-none"
                   placeholder="Cari nama stand atau makanan..."
                 />
@@ -71,6 +92,19 @@ export default function LandingPage() {
                 Cari Kantin
               </button>
             </form>
+            
+            <div className="flex flex-wrap gap-2 max-w-lg">
+              {['🍃 Grade A', '🍱 Kantin Utama', 'Sertifikasi Sehat', 'Favorit Mahasiswa'].map((chip) => (
+                <button
+                  key={chip}
+                  type="button"
+                  onClick={() => setSearchQuery(chip)}
+                  className="px-4 py-1.5 bg-[#edf4d5] text-[#0f2e22] text-xs font-semibold rounded-full hover:-translate-y-1 hover:shadow-md active:scale-95 transition-all duration-200 ease-in-out"
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
           </div>
           
           {/* Kanan: Gambar Curve Transparan */}
