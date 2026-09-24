@@ -51,7 +51,7 @@ export function HowItWorksSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
-              <div key={step.id} className="flex flex-col items-center text-center group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2">
+              <article key={step.id} className="flex flex-col items-center text-center group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2">
                 <div className="w-20 h-20 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center shadow-lg mb-6 relative group-hover:shadow-xl transition-all duration-300">
                   <div className="absolute -top-3 -right-3 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold border-4 border-white group-hover:scale-110 transition-transform duration-300">
                     {step.id}
@@ -65,7 +65,7 @@ export function HowItWorksSection() {
                 {index < steps.length - 1 && (
                   <div className="md:hidden w-1 h-12 bg-slate-100 my-4"></div>
                 )}
-              </div>
+              </article>
             ))}
           </div>
         </div>

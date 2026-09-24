@@ -42,7 +42,7 @@ export default function LoginPage() {
         </svg>
       </div>
 
-      <div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/50 z-10 relative">
+      <main className="w-full max-w-md bg-white p-8 sm:p-10 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/50 z-10 relative">
         <div className="text-center">
           <div className="mx-auto flex flex-col items-center justify-center">
             <img src={logoSanitacare} alt="Logo" className="h-14 w-14 object-contain" />
@@ -115,7 +115,7 @@ export default function LoginPage() {
             </Link>
           </div>
         </form>
-      </div>
+      </main>
     </div>
   );
 }

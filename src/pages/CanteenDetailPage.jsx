@@ -268,7 +268,7 @@ export default function CanteenDetailPage() {
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center overflow-hidden border border-emerald-200">
                           {review.profiles?.avatar_url ? (
-                            <img src={review.profiles.avatar_url} alt="" className="w-full h-full object-cover" />
+                            <img src={review.profiles.avatar_url} alt={`Avatar ${review.profiles.full_name}`} className="w-full h-full object-cover" />
                           ) : (
                             review.profiles?.full_name?.charAt(0) || <User className="w-4 h-4 text-slate-500" />
                           )}
@@ -341,7 +341,7 @@ export default function CanteenDetailPage() {
               <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-100">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center overflow-hidden border border-emerald-200 shrink-0">
                   {selectedPhotoReview.profiles?.avatar_url ? (
-                    <img src={selectedPhotoReview.profiles.avatar_url} alt="" className="w-full h-full object-cover" />
+                    <img src={selectedPhotoReview.profiles.avatar_url} alt={`Avatar ${selectedPhotoReview.profiles.full_name}`} className="w-full h-full object-cover" />
                   ) : (
                     selectedPhotoReview.profiles?.full_name?.charAt(0) || <User className="w-5 h-5 text-slate-500" />
                   )}

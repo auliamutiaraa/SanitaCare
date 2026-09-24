@@ -63,7 +63,7 @@ export default function CanteenListPage() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar Filter (Desktop) & Drawer (Mobile) */}
           <div className={`
-            fixed inset-0 z-50 bg-white p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-64 md:bg-transparent md:p-0 md:z-0
+            fixed inset-0 z-50 bg-white p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out md:relative md:transform-none md:w-64 md:bg-white md:p-6 md:z-0 md:rounded-2xl md:border md:border-slate-200 md:shadow-sm
             ${isMobileFilterOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           `}>
             <div className="flex items-center justify-between mb-6 md:hidden">

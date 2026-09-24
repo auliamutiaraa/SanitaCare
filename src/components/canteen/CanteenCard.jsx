@@ -7,7 +7,7 @@ export const CanteenCard = ({ canteen }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl rounded-2xl border border-slate-200 overflow-hidden bg-white flex flex-col h-full group relative">
+    <article className="transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl rounded-2xl border border-slate-200 overflow-hidden bg-white flex flex-col h-full group relative">
       <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
         <img 
           src={canteen.banner_url || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80'} 
@@ -57,6 +57,6 @@ export const CanteenCard = ({ canteen }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
