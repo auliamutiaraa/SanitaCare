@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { CanteenCard } from '../canteen/CanteenCard';
 import { ArrowRight } from 'lucide-react';
 
+/**
+ * Komponen FeaturedCanteensSection untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function FeaturedCanteensSection({ canteens, loading }) {
   return (
     <section className="relative py-16 bg-white overflow-hidden">

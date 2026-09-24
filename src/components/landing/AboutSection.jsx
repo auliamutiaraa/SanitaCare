@@ -2,6 +2,10 @@ import React from 'react';
 import { CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 import aboutImage from '../../assets/about-sanitacare.jpg';
 
+/**
+ * Komponen AboutSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function AboutSection() {
   const points = [
     'Transparansi penuh skor sanitasi dan higienitas setiap kantin',
@@ -42,18 +46,8 @@ export function AboutSection() {
 
               {/* Floating Badge 2 (Pojok Kanan Atas) */}
               <div 
-                className="absolute top-6 right-6 backdrop-blur-md bg-white/90 border border-white/50 shadow-lg rounded-2xl p-3 flex items-center gap-2 transition-transform hover:-translate-y-1"
-                style={{ animation: 'float 3s ease-in-out infinite' }}
+                className="absolute top-6 right-6 backdrop-blur-md bg-white/90 border border-white/50 shadow-lg rounded-2xl p-3 flex items-center gap-2 transition-transform hover:-translate-y-1 animate-float"
               >
-                <style>
-                  {`
-                    @keyframes float {
-                      0% { transform: translateY(0px); }
-                      50% { transform: translateY(-8px); }
-                      100% { transform: translateY(0px); }
-                    }
-                  `}
-                </style>
                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />
                 <p className="font-bold text-[10px] sm:text-xs text-slate-900">100% Transparan</p>
               </div>

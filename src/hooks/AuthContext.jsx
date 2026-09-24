@@ -3,6 +3,10 @@ import { supabase } from '../services/supabaseClient';
 
 const AuthContext = createContext();
 
+/**
+ * Custom hook AuthProvider untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -76,6 +80,10 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+/**
+ * Custom hook useAuth untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export const useAuth = () => {
   return useContext(AuthContext);
 };

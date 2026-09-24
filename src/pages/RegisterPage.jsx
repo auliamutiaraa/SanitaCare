@@ -16,6 +16,10 @@ const registerSchema = z.object({
   role: z.enum(['student', 'auditor', 'tenant'], { required_error: 'Role harus dipilih' }),
 });
 
+/**
+ * Komponen RegisterPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function RegisterPage() {
   const { register: registerAuth, isLoading } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);

@@ -13,6 +13,10 @@ import { MetricsSection } from '../components/landing/MetricsSection';
 import { FeaturedCanteensSection } from '../components/landing/FeaturedCanteensSection';
 import heroImage from '../assets/hero-canteen-new.jpg';
 
+/**
+ * Komponen LandingPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function LandingPage() {
   const { canteens, loading, fetchCanteens } = useCanteens();
   const navigate = useNavigate();

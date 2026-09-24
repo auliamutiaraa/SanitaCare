@@ -6,6 +6,10 @@ import { GradeBadge } from '../components/canteen/GradeBadge';
 import { FileText, ClipboardList, CheckCircle, XCircle, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 
+/**
+ * Komponen AuditorDashboard untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function AuditorDashboard() {
   const { profile } = useAuth();
   const { inspections, requests, loading, fetchMyInspections, fetchInspectionRequests, updateRequestStatus } = useInspections();
@@ -85,7 +89,10 @@ export default function AuditorDashboard() {
 
           <div className="p-0">
             {loading ? (
-              <div className="p-12 text-center text-slate-500">Memuat data...</div>
+              <div className="flex flex-col items-center justify-center py-20 gap-4">
+                <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+                <p className="text-slate-500 font-medium">Memuat data...</p>
+              </div>
             ) : activeTab === 'history' ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm text-slate-600">

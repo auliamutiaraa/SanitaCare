@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { toast } from 'sonner';
 
+/**
+ * Custom hook useProfile untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export const useProfile = (user, profile) => {
   const [isLoading, setIsLoading] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);

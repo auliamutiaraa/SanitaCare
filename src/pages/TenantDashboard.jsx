@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/AuthContext';
 import { useTenant } from '../hooks/useTenant';
 import { GradeBadge } from '../components/canteen/GradeBadge';
-import { Store, CalendarClock, Send, MapPin, Image as ImageIcon } from 'lucide-react';
+import { Store, CalendarClock, Send, MapPin, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+/**
+ * Komponen TenantDashboard untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function TenantDashboard() {
   const { profile } = useAuth();
   const { myCanteen, myRequests, loading, fetchTenantData, createRequest, registerCanteen } = useTenant();
@@ -51,7 +55,12 @@ export default function TenantDashboard() {
   };
 
   if (loading && !myCanteen) {
-    return <div className="p-12 text-center text-slate-500">Memuat data kantin...</div>;
+    return (
+      <div className="min-h-[60vh] flex flex-col justify-center items-center gap-4">
+        <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+        <p className="text-slate-500 font-medium">Memuat data kantin...</p>
+      </div>
+    );
   }
 
   return (

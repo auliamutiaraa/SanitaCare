@@ -1,6 +1,10 @@
 import React from 'react';
 import { CalendarDays, ClipboardCheck, Calculator, Eye } from 'lucide-react';
 
+/**
+ * Komponen HowItWorksSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function HowItWorksSection() {
   const steps = [
     {

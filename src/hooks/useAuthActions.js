@@ -3,6 +3,10 @@ import { supabase } from '../services/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
+/**
+ * Custom hook useAuthActions untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export const useAuthActions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();

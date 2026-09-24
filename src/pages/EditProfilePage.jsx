@@ -14,6 +14,10 @@ const profileSchema = z.object({
   password: z.string().min(6, { message: 'Password minimal 6 karakter' }).optional().or(z.literal('')),
 });
 
+/**
+ * Komponen EditProfilePage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function EditProfilePage() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();

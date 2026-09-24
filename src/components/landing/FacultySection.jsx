@@ -15,6 +15,10 @@ const faculties = [
   { id: 'MIPA', name: 'MIPA', icon: Microscope, count: 6 },
 ];
 
+/**
+ * Komponen FacultySection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function FacultySection() {
   const navigate = useNavigate();
 

@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { GradeBadge } from './GradeBadge';
 import { Star, MapPin, Heart } from 'lucide-react';
 
+/**
+ * Komponen CanteenCard untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const CanteenCard = ({ canteen }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 

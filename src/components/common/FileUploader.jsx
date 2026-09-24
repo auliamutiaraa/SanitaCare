@@ -1,6 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { UploadCloud, X, Image as ImageIcon } from 'lucide-react';
 
+/**
+ * Komponen FileUploader untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const FileUploader = ({ onFileSelect, accept = "image/*", maxSizeMB = 5 }) => {
   const [dragActive, setDragActive] = useState(false);
   const [preview, setPreview] = useState(null);

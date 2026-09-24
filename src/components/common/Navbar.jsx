@@ -21,6 +21,10 @@ const RoleBadge = ({ role }) => {
   );
 };
 
+/**
+ * Komponen Navbar untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const Navbar = () => {
   const { user, profile, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);

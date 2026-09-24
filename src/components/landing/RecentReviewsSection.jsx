@@ -1,6 +1,10 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 
+/**
+ * Komponen RecentReviewsSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function RecentReviewsSection() {
   const reviews = [
     {

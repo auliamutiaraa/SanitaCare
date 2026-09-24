@@ -3,6 +3,10 @@ import { Leaf } from 'lucide-react';
 import logoUnsri from '../../assets/logo-unsri.png';
 import logoSanitacare from '../../assets/logo-sanitacare.png';
 
+/**
+ * Komponen Footer untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const Footer = () => {
   return (
     <footer className="relative z-20 bg-[#0f2e22] text-[#edf4d5] py-12">
@@ -20,8 +24,7 @@ export const Footer = () => {
                 <img src={logoSanitacare} alt="Logo" className="w-8 h-8 object-contain" />
                 <div className="flex flex-col justify-center">
                   <span 
-                    className="font-semibold text-xl text-[#ffffff] tracking-tight leading-tight"
-                    style={{ fontFamily: "'Cooper BT', serif" }}
+                    className="font-semibold text-xl text-[#ffffff] tracking-tight leading-tight font-cooper"
                   >
                     SanitaCare
                   </span>
@@ -35,8 +38,7 @@ export const Footer = () => {
           </div>
           <div>
             <h4 
-              className="text-[#ffffff] font-semibold mb-4 text-lg"
-              style={{ fontFamily: "'Cooper BT', serif" }}
+              className="text-[#ffffff] font-semibold mb-4 text-lg font-cooper"
             >
               Tautan Pantas
             </h4>
@@ -48,8 +50,7 @@ export const Footer = () => {
           </div>
           <div>
             <h4 
-              className="text-[#ffffff] font-semibold mb-4 text-lg"
-              style={{ fontFamily: "'Cooper BT', serif" }}
+              className="text-[#ffffff] font-semibold mb-4 text-lg font-cooper"
             >
               Kontak Info
             </h4>

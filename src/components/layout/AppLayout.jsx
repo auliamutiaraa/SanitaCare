@@ -1,6 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+/**
+ * Komponen AppLayout untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function AppLayout({ children }) {
   return (
     <div className="relative w-full h-full flex flex-col flex-1 bg-[#faf9f4]">

@@ -4,6 +4,10 @@ import { Filter, Search, X } from 'lucide-react';
 import { useCanteens } from '../hooks/useCanteens';
 import { CanteenCard } from '../components/canteen/CanteenCard';
 
+/**
+ * Komponen CanteenListPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function CanteenListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearch = searchParams.get('search') || '';

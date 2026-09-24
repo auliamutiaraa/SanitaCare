@@ -1,6 +1,10 @@
 import React from 'react';
 import { ShieldCheck, Users, Activity } from 'lucide-react';
 
+/**
+ * Komponen MetricsSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function MetricsSection() {
   return (
     <section className="bg-white pb-12 pt-2 relative z-10">

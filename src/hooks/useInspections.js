@@ -2,6 +2,10 @@ import { useState, useCallback } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useAuth } from '../hooks/AuthContext';
 
+/**
+ * Custom hook useInspections untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export function useInspections() {
   const { user } = useAuth();
   const [inspections, setInspections] = useState([]);

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
+/**
+ * Komponen FaqSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState(null);
 

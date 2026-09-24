@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../services/supabaseClient';
 
+/**
+ * Custom hook useCanteens untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export function useCanteens() {
   const [canteens, setCanteens] = useState([]);
   const [canteenDetail, setCanteenDetail] = useState(null);

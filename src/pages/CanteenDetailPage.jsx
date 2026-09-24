@@ -7,6 +7,10 @@ import { GradeBadge } from '../components/canteen/GradeBadge';
 import { ReviewFormModal } from '../components/review/ReviewFormModal';
 import { MapPin, Calendar, CheckCircle2, AlertCircle, Droplets, Trash2, Utensils, Star, User, X, Camera } from 'lucide-react';
 
+/**
+ * Komponen CanteenDetailPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function CanteenDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();

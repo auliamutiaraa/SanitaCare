@@ -1,6 +1,11 @@
 import React from 'react';
 import { clsx } from 'clsx';
 
+/**
+ * Komponen GradeBadge untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const GradeBadge = ({ grade, className }) => {
   const styles = {
     A: "bg-emerald-100 text-emerald-800 border-emerald-300",

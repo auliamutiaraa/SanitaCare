@@ -16,6 +16,10 @@ import EditProfilePage from '../pages/EditProfilePage';
 import { ProtectedRoute } from './common/ProtectedRoute';
 import { AppLayout } from './layout/AppLayout';
 
+/**
+ * Komponen AppRoutes untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const AppRoutes = () => {
   return (
     <Routes>

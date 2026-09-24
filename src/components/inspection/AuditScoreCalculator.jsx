@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { GradeBadge } from '../canteen/GradeBadge';
 
+/**
+ * Komponen AuditScoreCalculator untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const AuditScoreCalculator = ({ onScoreChange }) => {
   const [water, setWater] = useState(0);
   const [waste, setWaste] = useState(0);

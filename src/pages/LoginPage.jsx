@@ -13,6 +13,10 @@ const loginSchema = z.object({
   password: z.string().min(1, { message: 'Password wajib diisi' }),
 });
 
+/**
+ * Komponen LoginPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function LoginPage() {
   const { login, isLoading } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);

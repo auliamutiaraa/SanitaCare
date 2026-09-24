@@ -2,6 +2,10 @@ import { useState, useCallback } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useAuth } from '../hooks/AuthContext';
 
+/**
+ * Custom hook useTenant untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export function useTenant() {
   const { user } = useAuth();
   const [myCanteen, setMyCanteen] = useState(null);

@@ -2,6 +2,11 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 
+/**
+ * Komponen ProtectedRoute untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const ProtectedRoute = ({ allowedRoles }) => {
   const { user, profile, loading } = useAuth();
 

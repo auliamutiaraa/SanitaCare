@@ -4,6 +4,11 @@ import { useReviews } from '../../hooks/useReviews';
 import { Star, X } from 'lucide-react';
 import { toast } from 'sonner';
 
+/**
+ * Komponen ReviewFormModal untuk merender antarmuka pengguna.
+ * @param {Object} props - Properti untuk komponen ini.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export const ReviewFormModal = ({ isOpen, onClose, canteenId, canteenName, onSuccess }) => {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);

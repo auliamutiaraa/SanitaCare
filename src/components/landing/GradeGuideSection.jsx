@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { ShieldCheck, AlertCircle, AlertTriangle } from 'lucide-react';
 
+/**
+ * Komponen GradeGuideSection untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export function GradeGuideSection() {
   const [activeTab, setActiveTab] = useState('A');
 

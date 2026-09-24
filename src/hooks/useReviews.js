@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useAuth } from '../hooks/AuthContext';
 
+/**
+ * Custom hook useReviews untuk mengelola logika dan state terkait.
+ * @returns {Object} State dan fungsi helper yang dapat digunakan komponen.
+ */
 export function useReviews() {
   const { user, profile } = useAuth();
   const [loading, setLoading] = useState(false);

@@ -6,6 +6,10 @@ import { FileUploader } from '../components/common/FileUploader';
 import { ArrowLeft, Save } from 'lucide-react';
 import { toast } from 'sonner';
 
+/**
+ * Komponen CreateInspectionPage untuk merender antarmuka pengguna.
+ * @returns {JSX.Element} Elemen React yang dikembalikan.
+ */
 export default function CreateInspectionPage() {
   const [searchParams] = useSearchParams();
   const reqIdParam = searchParams.get('request_id');
