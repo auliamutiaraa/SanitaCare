@@ -11,6 +11,7 @@ import { RecentReviewsSection } from '../components/landing/RecentReviewsSection
 import { FaqSection } from '../components/landing/FaqSection';
 import { MetricsSection } from '../components/landing/MetricsSection';
 import { FeaturedCanteensSection } from '../components/landing/FeaturedCanteensSection';
+import heroImage from '../assets/hero-canteen-new.jpg';
 
 export default function LandingPage() {
   const { canteens, loading, fetchCanteens } = useCanteens();
@@ -31,45 +32,60 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-[#faf9f4] overflow-hidden pt-24 pb-40 md:pt-32 md:pb-48">
-        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-           {/* Decorative Waves in Hero Background */}
-           <svg className="absolute top-0 right-0 w-[50vw] text-[#e2ede0]" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-             <path d="M800 0V1000C800 1000 600 800 400 600C200 400 50 250 0 100C0 100 200 50 800 0Z" fill="currentColor"/>
-           </svg>
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#009a60]/10 border border-[#009a60]/20 text-sm font-semibold text-[#009a60] mb-6 shadow-sm">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Sistem Keamanan Pangan Tersertifikasi</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0f2e22] mb-6">
-            Temukan <span className="text-[#009a60]">Kantin Kampus Sehat</span> <br className="hidden md:block"/> & Higienis
-          </h1>
-          <p className="max-w-2xl text-lg md:text-xl text-slate-600 mb-10">
-            SanitaCare memastikan transparansi sanitasi dan kebersihan setiap kantin di lingkungan kampus Universitas Sriwijaya untuk kesehatan Anda.
-          </p>
+      <section className="relative bg-[#faf9f4] pt-8 lg:pt-6 overflow-hidden min-h-[calc(100vh-80px)]">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 pb-20 lg:pb-32">
           
-          <form onSubmit={handleSearch} className="w-full max-w-2xl flex flex-col sm:flex-row gap-3">
-            <div className="relative flex-1">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-slate-400" />
+          {/* Kiri: Teks & Search */}
+          <div className="w-full lg:w-[50%] flex flex-col items-start text-left pt-4 lg:pt-0 lg:pb-12 z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f4ec] text-xs font-semibold text-[#009a60] mb-5">
+              <ShieldCheck className="w-4 h-4" />
+              <span>Sistem Keamanan Pangan Tersertifikasi</span>
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl lg:text-[3.25rem] font-extrabold tracking-tight text-[#0f2e22] mb-5 leading-[1.15]">
+              Temukan <br className="hidden lg:block"/>
+              <span className="text-[#009a60]">Kantin Kampus Sehat</span> <br />
+              & Higienis
+            </h1>
+            
+            <p className="max-w-lg text-base lg:text-lg text-slate-500 mb-8 leading-relaxed">
+              SanitaCare memastikan transparansi sanitasi dan kebersihan setiap kantin di lingkungan kampus Universitas Sriwijaya untuk kesehatan Anda.
+            </p>
+            
+            <form onSubmit={handleSearch} className="w-full flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-sm border border-slate-100 max-w-lg">
+              <div className="relative flex-1">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-slate-400" />
+                </div>
+                <input
+                  type="text"
+                  name="search"
+                  className="block w-full pl-11 pr-4 py-3 rounded-xl border-0 bg-transparent text-slate-900 focus:ring-0 text-sm lg:text-base transition-all outline-none"
+                  placeholder="Cari nama stand atau makanan..."
+                />
               </div>
-              <input
-                type="text"
-                name="search"
-                className="block w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-sm focus:border-[#009a60] focus:ring-1 focus:ring-[#009a60] text-base transition-all outline-none"
-                placeholder="Cari nama stand atau makanan..."
+              <button
+                type="submit"
+                className="px-6 py-3 bg-[#009a60] hover:bg-[#008855] text-white font-bold rounded-xl transition-colors whitespace-nowrap text-sm lg:text-base"
+              >
+                Cari Kantin
+              </button>
+            </form>
+          </div>
+          
+          {/* Kanan: Gambar Curve Transparan */}
+          <div className="w-full lg:w-[50%] flex justify-end z-0 mt-10 lg:mt-0 lg:-mr-12 xl:-mr-16">
+            <div className="relative w-full max-w-[580px] h-[350px] sm:h-[400px] lg:h-[480px] xl:h-[520px] rounded-tl-[120px] sm:rounded-tl-[150px] lg:rounded-tl-[200px] rounded-bl-[120px] sm:rounded-bl-[150px] lg:rounded-bl-[200px] overflow-hidden border-l-[10px] lg:border-l-[12px] border-[#009a60] bg-transparent">
+              <img 
+                src={heroImage} 
+                alt="Kantin Kampus Bersih" 
+                className="w-full h-full object-cover object-center"
               />
             </div>
-            <button
-              type="submit"
-              className="px-8 py-4 bg-[#009a60] hover:bg-[#008855] text-white font-bold rounded-2xl shadow-md transition-colors"
-            >
-              Cari Kantin
-            </button>
-          </form>
+          </div>
+
         </div>
+        
         
         {/* SVG Wave Divider to White */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">

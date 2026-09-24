@@ -4,19 +4,7 @@ import { Leaf, Menu, X, User, Settings, LogOut, UserPlus, ChevronDown } from 'lu
 import { useAuth } from '../../context/AuthContext';
 import logoSanitacare from '../../assets/logo-sanitacare.png';
 
-const NavbarPattern = () => (
-  <div className="absolute inset-0 pointer-events-none z-[-1] overflow-hidden">
-    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="opacity-5">
-      <defs>
-        <pattern id="nav-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M0 40L40 0H20L0 20M40 40V20L20 40" fill="none" stroke="currentColor" strokeWidth="1" />
-          <circle cx="20" cy="20" r="1.5" fill="currentColor" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#nav-pattern)" className="text-emerald-900" />
-    </svg>
-  </div>
-);
+
 
 const RoleBadge = ({ role }) => {
   if (!role) return null;
@@ -82,10 +70,10 @@ export const Navbar = () => {
   }, [isOpen]);
 
   const navLinkClass = ({ isActive }) =>
-    `relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+    `relative py-1 text-sm font-semibold transition-all duration-300 border-b-2 ${
       isActive
-        ? 'text-emerald-700 bg-emerald-50 shadow-sm ring-1 ring-emerald-100/50'
-        : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50'
+        ? 'text-[#009a60] border-[#009a60]'
+        : 'text-[#1f2937] border-transparent hover:text-[#009a60]'
     }`;
 
   const mobileNavLinkClass = ({ isActive }) =>
@@ -97,8 +85,8 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-emerald-100/50 relative">
-        <NavbarPattern />
+      <nav className="sticky top-0 z-40 bg-[#faf9f4] relative">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex justify-between h-20 items-center">
             
@@ -106,17 +94,17 @@ export const Navbar = () => {
             <Link to="/" className="flex items-center gap-1.5 group focus:outline-none">
               <img src={logoSanitacare} alt="Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain group-hover:scale-105 transition-transform duration-300" />
               <div className="flex flex-col justify-center">
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-800 to-teal-700 leading-tight">
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#0f2e22] leading-tight">
                   SanitaCare
                 </span>
-                <span className="text-[10px] sm:text-xs font-semibold text-emerald-600/80 tracking-wider uppercase leading-none">
+                <span className="text-[10px] sm:text-xs font-bold text-[#009a60] tracking-wider uppercase leading-none">
                   Sriwijaya University
                 </span>
               </div>
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-8">
               <NavLink to="/" className={navLinkClass}>
                 Beranda
               </NavLink>
@@ -194,11 +182,11 @@ export const Navbar = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 ml-4">
-                  <Link to="/login" className="px-5 py-2.5 rounded-full text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 transition-all hover:scale-105">
+                <div className="flex items-center gap-6">
+                  <Link to="/login" className="text-sm font-semibold text-[#1f2937] hover:text-[#009a60] transition-colors">
                     Masuk
                   </Link>
-                  <Link to="/register" className="px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-500 shadow-md shadow-emerald-200/50 hover:shadow-lg hover:shadow-emerald-300 hover:scale-105 hover:-translate-y-0.5 transition-all duration-300">
+                  <Link to="/register" className="px-6 py-2.5 rounded-lg text-sm font-bold text-white bg-[#009a60] hover:bg-[#008855] transition-colors">
                     Daftar
                   </Link>
                 </div>
@@ -225,8 +213,7 @@ export const Navbar = () => {
       />
 
       {/* Mobile Drawer */}
-      <div className={`fixed inset-y-0 right-0 w-[280px] bg-white/95 backdrop-blur-xl shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <NavbarPattern />
+      <div className={`fixed inset-y-0 right-0 w-[280px] bg-[#faf9f4] shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-5 border-b border-emerald-100/50 bg-white/50">

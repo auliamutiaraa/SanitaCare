@@ -3,8 +3,8 @@ import { ShieldCheck, Users, Activity } from 'lucide-react';
 
 export function MetricsSection() {
   return (
-    <section className="bg-white py-12 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-white pb-12 pt-2 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 md:-mt-10 relative z-20">
         <div className="rounded-3xl bg-white/90 backdrop-blur-md border border-emerald-100 shadow-xl shadow-emerald-900/5 p-6 md:p-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             
