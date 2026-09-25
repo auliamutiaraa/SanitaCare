@@ -87,8 +87,13 @@ export default function TenantDashboard() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700">Fakultas / Lokasi</label>
-                <input required type="text" className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none" 
-                  value={canteenForm.faculty_location} onChange={e => setCanteenForm({...canteenForm, faculty_location: e.target.value})} placeholder="Misal: FKM" />
+                <select required className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none bg-white" 
+                  value={canteenForm.faculty_location} onChange={e => setCanteenForm({...canteenForm, faculty_location: e.target.value})}>
+                  <option value="" disabled>Pilih Fakultas / Lokasi</option>
+                  {['FKM', 'FT', 'FE', 'FK', 'FH', 'FISIP', 'FASILKOM', 'FKIP', 'MIPA', 'FP'].map(f => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700">Deskripsi Singkat</label>
