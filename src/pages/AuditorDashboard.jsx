@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useInspections } from '../hooks/useInspections';
 import { useAuth } from '../hooks/AuthContext';
 import { GradeBadge } from '../components/canteen/GradeBadge';
-import { FileText, ClipboardList, CheckCircle, XCircle, Plus } from 'lucide-react';
+import { FileText, ClipboardList, CheckCircle, XCircle, Plus, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 /**
@@ -41,15 +41,15 @@ export default function AuditorDashboard() {
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-extrabold text-slate-900">Dashboard Auditor</h1>
             <p className="text-slate-600 mt-1">Selamat datang kembali, {profile?.full_name}</p>
           </div>
-          <Link 
-            to="/dashboard/auditor/create" 
+          <Link
+            to="/dashboard/auditor/create"
             className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors shadow-sm"
           >
             <Plus className="w-5 h-5" />
@@ -62,21 +62,19 @@ export default function AuditorDashboard() {
           <div className="flex border-b border-slate-200">
             <button
               onClick={() => setActiveTab('history')}
-              className={`flex-1 flex justify-center items-center gap-2 py-4 text-sm font-semibold transition-colors ${
-                activeTab === 'history' 
-                  ? 'border-b-2 border-emerald-600 text-emerald-600 bg-emerald-50/50' 
+              className={`flex-1 flex justify-center items-center gap-2 py-4 text-sm font-semibold transition-colors ${activeTab === 'history'
+                  ? 'border-b-2 border-emerald-600 text-emerald-600 bg-emerald-50/50'
                   : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
-              }`}
+                }`}
             >
               <FileText className="w-4 h-4" /> Riwayat Inspeksi
             </button>
             <button
               onClick={() => setActiveTab('requests')}
-              className={`flex-1 flex justify-center items-center gap-2 py-4 text-sm font-semibold transition-colors ${
-                activeTab === 'requests' 
-                  ? 'border-b-2 border-emerald-600 text-emerald-600 bg-emerald-50/50' 
+              className={`flex-1 flex justify-center items-center gap-2 py-4 text-sm font-semibold transition-colors ${activeTab === 'requests'
+                  ? 'border-b-2 border-emerald-600 text-emerald-600 bg-emerald-50/50'
                   : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
-              }`}
+                }`}
             >
               <ClipboardList className="w-4 h-4" /> Pengajuan Tenant
               {requests.filter(r => r.status === 'pending').length > 0 && (
